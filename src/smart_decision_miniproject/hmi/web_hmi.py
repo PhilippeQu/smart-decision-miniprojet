@@ -70,6 +70,17 @@ def update_main_content(page_name):
     global current_page, main_content
     current_page = page_name
     print(f"切换到页面: {page_name}")  # 调试信息
+    
+    # 根据页面动态更新浏览器标题
+    page_titles = {
+        "home": "Accueil | Mini Projet - Décision Intelligente",
+        "algorithm_comparison": "Comparaison d'Algorithmes | Mini Projet TSP",
+        "parameter_optimization": "Optimisation Géographique | Mini Projet TSP", 
+        "report": "Résolution VRP | Mini Projet - Vehicle Routing"
+    }
+    
+    title = page_titles.get(page_name, "Mini Projet - Décision Intelligente")
+    ui.page_title(title)
 
     # 清空当前内容并重新渲染
     if main_content is not None:
@@ -95,6 +106,11 @@ def update_main_content(page_name):
 
 def main_page_layout():
     global main_content
+    
+    # 设置页面基本信息
+    ui.page_title('Mini Projet - Décision Intelligente | TSP & VRP Solver')
+    ui.add_head_html('<meta name="description" content="Application de résolution TSP et VRP avec algorithmes de recuit simulé et colonies de fourmis">')
+    ui.add_head_html('<meta name="keywords" content="TSP, VRP, Recuit Simulé, Colonies de Fourmis, Optimisation">')
 
     # 顶部导航栏
     with (

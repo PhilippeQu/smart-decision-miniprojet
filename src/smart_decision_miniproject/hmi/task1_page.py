@@ -344,18 +344,18 @@ def render_algorithm_comparison_content():
                                 "text-center text-grey-6"
                             )
 
-            # 统计结果表格
-            with ui.card().classes("w-full bg-grey-1 q-pa-lg"):
-                ui.label("📋 Tableau Récapitulatif").classes(
-                    "text-h6 q-mb-md text-center text-weight-medium"
-                )
-                results_table_container = ui.column().classes("w-full")
-                with results_table_container:
-                    with ui.column().classes("items-center justify-center q-pa-xl"):
-                        ui.icon("table_chart", size="4em").classes("text-grey-5")
-                        ui.label(
-                            "Les résultats apparaîtront ici après l'exécution"
-                        ).classes("text-center text-grey-6")
+            # # 统计结果表格
+            # with ui.card().classes("w-full bg-grey-1 q-pa-lg"):
+            #     ui.label("📋 Tableau Récapitulatif").classes(
+            #         "text-h6 q-mb-md text-center text-weight-medium"
+            #     )
+            #     results_table_container = ui.column().classes("w-full")
+            #     with results_table_container:
+            #         with ui.column().classes("items-center justify-center q-pa-xl"):
+            #             ui.icon("table_chart", size="4em").classes("text-grey-5")
+            #             ui.label(
+            #                 "Les résultats apparaîtront ici après l'exécution"
+            #             ).classes("text-center text-grey-6")
 
 
 def update_progress(value, text):

@@ -389,13 +389,13 @@ def show_vrp_results(result: VRPResult):
             # 获取详细统计信息
             statistics = result.get_statistics()
             
-            # 详细统计表格
-            with ui.expansion('Statistiques Détaillées', icon='analytics').classes('w-full q-mb-md'):
-                with ui.grid(columns=2).classes('w-full gap-4'):
-                    for key, value in statistics.items():
-                        if key != 'routes_details':
-                            ui.label(f'{key}:').classes('text-weight-medium')
-                            ui.label(str(value)).classes('text-right')
+            # # 详细统计表格
+            # with ui.expansion('Statistiques Détaillées', icon='analytics').classes('w-full q-mb-md'):
+            #     with ui.grid(columns=2).classes('w-full gap-4'):
+            #         for key, value in statistics.items():
+            #             if key != 'routes_details':
+            #                 ui.label(f'{key}:').classes('text-weight-medium')
+            #                 ui.label(str(value)).classes('text-right')
             
             # 详细路线信息
             with ui.expansion('Détails des Routes', icon='route').classes('w-full q-mb-md'):
