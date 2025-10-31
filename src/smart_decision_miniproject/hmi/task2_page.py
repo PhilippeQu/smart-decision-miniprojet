@@ -13,7 +13,7 @@ from smart_decision_miniproject.timer import TimerManager
 
 # 算法参数配置字典
 sa_params = {
-    "initial_temperature": 1000.0,
+    "initial_temperature": 1000,
     "min_temperature": 0.01,
     "cooling_rate": 0.995,
     "max_iterations": 10000,
@@ -29,6 +29,7 @@ aco_params = {
     "convergence_threshold": 1e-6,
     "patience": 10,
 }
+
 
 # 全局UI组件变量
 progress_bar = None
@@ -382,6 +383,13 @@ def render_parameter_optimization_content():
                             on_change=lambda e: sa_params.update({'initial_temperature': e.value})
                         ).classes('q-mb-sm').props('outlined dense color=green-6')
                         
+                        ui.label('Température Minimale').classes('text-subtitle2 text-weight-medium q-mb-xs')
+                        ui.number(
+                            value=sa_params['min_temperature'],
+                            min=0.01,
+                            on_change=lambda e: sa_params.update({'min_temperature': e.value})
+                        ).classes('q-mb-sm').props('outlined dense color=green-6')
+                        
                         ui.label('Taux de Refroidissement').classes('text-subtitle2 text-weight-medium q-mb-xs')
                         ui.number(
                             value=sa_params['cooling_rate'],
@@ -391,13 +399,6 @@ def render_parameter_optimization_content():
                             on_change=lambda e: sa_params.update({'cooling_rate': e.value})
                         ).classes('q-mb-sm').props('outlined dense color=green-6')
                         
-                        ui.label('Température Minimale').classes('text-subtitle2 text-weight-medium q-mb-xs')
-                        ui.number(
-                            value=sa_params['min_temperature'],
-                            min=0.01,
-                            on_change=lambda e: sa_params.update({'min_temperature': e.value})
-                        ).classes('q-mb-sm').props('outlined dense color=green-6')
-                        
                         ui.label('Itérations Maximum').classes('text-subtitle2 text-weight-medium q-mb-xs')
                         ui.number(
                             value=sa_params['max_iterations'],
@@ -405,49 +406,115 @@ def render_parameter_optimization_content():
                             on_change=lambda e: sa_params.update({'max_iterations': e.value})
                         ).classes('q-mb-sm').props('outlined dense color=green-6')
                 
-                # 右列：Ant Colony Optimization 参数
-                with ui.card().classes('flex-1 max-w-md q-pa-lg bg-blue-1'):
-                    ui.label('🐜 Colonies de Fourmis (ACO)').classes('text-h6 text-center q-mb-lg text-blue-8 text-weight-bold')
-                    
-                    with ui.column().classes('q-gutter-md'):
-                        ui.label('Nombre de Fourmis').classes('text-subtitle2 text-weight-medium q-mb-xs')
-                        ui.number(
-                            value=aco_params['num_ants'],
-                            min=10,
-                            on_change=lambda e: aco_params.update({'num_ants': e.value})
-                        ).classes('q-mb-sm').props('outlined dense color=blue-6')
-                        
-                        ui.label('Alpha (Phéromone)').classes('text-subtitle2 text-weight-medium q-mb-xs')
-                        ui.number(
-                            value=aco_params['alpha'],
-                            step=0.1,
-                            min=0.1,
-                            on_change=lambda e: aco_params.update({'alpha': e.value})
-                        ).classes('q-mb-sm').props('outlined dense color=blue-6')
-                        
-                        ui.label('Beta (Distance)').classes('text-subtitle2 text-weight-medium q-mb-xs')
-                        ui.number(
-                            value=aco_params['beta'],
-                            step=0.1,
-                            min=0.1,
-                            on_change=lambda e: aco_params.update({'beta': e.value})
-                        ).classes('q-mb-sm').props('outlined dense color=blue-6')
-                        
-                        ui.label('Taux d\'Évaporation').classes('text-subtitle2 text-weight-medium q-mb-xs')
-                        ui.number(
-                            value=aco_params['evaporation_rate'],
-                            step=0.1,
-                            min=0.1,
-                            max=0.9,
-                            on_change=lambda e: aco_params.update({'evaporation_rate': e.value})
-                        ).classes('q-mb-sm').props('outlined dense color=blue-6')
-                        
-                        ui.label('Itérations Maximum').classes('text-subtitle2 text-weight-medium q-mb-xs')
-                        ui.number(
-                            value=aco_params['num_iterations'],
-                            min=100,
-                            on_change=lambda e: aco_params.update({'num_iterations': e.value})
-                        ).classes('q-mb-sm').props('outlined dense color=blue-6')
+                with ui.card().classes("flex-1 max-w-md q-pa-lg bg-blue-1"):
+                    ui.label("🐜 Colonies de Fourmis (ACO)").classes(
+                        "text-h6 text-center q-mb-lg text-blue-8 text-weight-bold"
+                    )
+
+                    # 使用两列布局来容纳更多参数
+                    with ui.row().classes("w-full q-gutter-md"):
+                        # 左列参数
+                        with ui.column().classes("flex-1 q-gutter-md"):
+                            ui.label("Nombre de Fourmis").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params["num_ants"],
+                                min=10,
+                                on_change=lambda e: aco_params.update(
+                                    {"num_ants": e.value}
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                            ui.label("Alpha (Phéromone)").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params["alpha"],
+                                step=0.1,
+                                min=0.1,
+                                on_change=lambda e: aco_params.update(
+                                    {"alpha": e.value}
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                            ui.label("Beta (Distance)").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params["beta"],
+                                step=0.1,
+                                min=0.1,
+                                on_change=lambda e: aco_params.update(
+                                    {"beta": e.value}
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                            ui.label("Taux d'Évaporation").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params["evaporation_rate"],
+                                step=0.1,
+                                min=0.1,
+                                max=0.9,
+                                on_change=lambda e: aco_params.update(
+                                    {"evaporation_rate": e.value}
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                        # 右列参数
+                        with ui.column().classes("flex-1 q-gutter-md"):
+                            ui.label("Q (Constante de renforcement)").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params.get("Q", 100.0),
+                                step=1.0,
+                                min=0.0,
+                                on_change=lambda e: aco_params.update({"Q": e.value}),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                            ui.label("Seuil de Convergence").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params.get("convergence_threshold", 1e-6),
+                                step=1e-6,
+                                min=0.0,
+                                on_change=lambda e: aco_params.update(
+                                    {"convergence_threshold": e.value}
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                            ui.label("Patience (itérations sans amélioration)").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params.get("patience", 10),
+                                step=1,
+                                min=0,
+                                on_change=lambda e: aco_params.update(
+                                    {
+                                        "patience": (
+                                            int(e.value)
+                                            if e.value is not None
+                                            else e.value
+                                        )
+                                    }
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
+
+                            ui.label("Itérations Maximum").classes(
+                                "text-subtitle2 text-weight-medium q-mb-xs"
+                            )
+                            ui.number(
+                                value=aco_params["num_iterations"],
+                                min=100,
+                                on_change=lambda e: aco_params.update(
+                                    {"num_iterations": e.value}
+                                ),
+                            ).classes("q-mb-sm").props("outlined dense color=blue-6")
         
         # 第二个区域：地点选择区域
         with ui.card().classes('w-full q-mb-xl shadow-lg q-pa-lg'):

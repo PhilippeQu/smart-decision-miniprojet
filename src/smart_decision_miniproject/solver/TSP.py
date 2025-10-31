@@ -429,7 +429,7 @@ def main():
         initial_temperature=1000.0,
         min_temperature=0.01,
         cooling_rate=0.995,
-        max_iterations=5000,
+        max_iterations=10000,
     )
 
     with time_manager.create_timer("Simulated Annealing TSP"):

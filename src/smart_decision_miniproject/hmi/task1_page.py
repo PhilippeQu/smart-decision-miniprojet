@@ -17,7 +17,7 @@ from smart_decision_miniproject.timer import TimerManager,Timer
 sa_params = {
     "initial_temperature": 1000,
     "min_temperature": 0.01,
-    "cooling_rate": 0.95,
+    "cooling_rate": 0.995,
     "max_iterations": 10000,
 }
 
